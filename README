@@ -1,0 +1,23 @@
+1 2 3
+Relea Florin Andrei 334CA
+
+root_id -> root-ul protocolului STP
+switch_id -> id-ul switchului
+
+interface_vlan -> o lista de tupluri care contin numele interfetei si vlan-ul
+Parcurg lista de interfete pt a determina vlan-ul fiecarui port(salvat tot ca lista de tupluri)
+Initializez switch-ul pentru a aplica protocolul STP
+
+Tabela CAM este salvata tot ca o lista de tupluri(adresa MAC, portul corespunzator). Initial 
+ea este vida. Cand se primeste un pachet se adauga in tabela adresa sursa(daca nu exista deja).
+Daca adresa destinatie nu exista in tabel se trimite pe toate interfetele pachetul(fara cea de pe 
+care a venit). Pachetele STP si cele normale sunt tratate separat. 
+Datele sunt prelucrate in functie de interfata de pe care au venit:
+- daca vin de pe trunk/acces
+Se tine cont si daca se trimit mai departe pe trunk/acces. Exista 4 cazuri:
+- vine de pe trunk merge tot pe trunk
+- vine de pe trunk merge pe acces(se scoate tag-ul)
+- vine de pe acces merge pe acces
+- vine de pe acces merge pe trunk(se adauga tag-ul)
+
+Pentru STP am trimis doar informatile esentiale: root bridge ID,  sender bridge ID, root path cost
